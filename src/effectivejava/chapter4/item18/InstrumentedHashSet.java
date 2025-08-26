@@ -1,10 +1,17 @@
 package effectivejava.chapter4.item18;
 import java.util.*;
 
-// Broken - Inappropriate use of inheritance! (Page 87)
+/**
+ * 不適切な継承の例
+ */
 public class InstrumentedHashSet<E> extends HashSet<E> {
-    // The number of attempted element insertions
     private int addCount = 0;
+
+    public static void main(String[] args) {
+		InstrumentedHashSet<String> s = new InstrumentedHashSet<>();
+		s.addAll(List.of("Snap", "Crackle", "pop"));
+		System.out.println(s.getAddCount()); // 想定外に6が得られる。
+    }
 
     public InstrumentedHashSet() {
     }
@@ -18,6 +25,11 @@ public class InstrumentedHashSet<E> extends HashSet<E> {
         return super.add(e);
     }
 
+    /**
+     * Listに一括追加を行うメソッド
+     * HashSetのaddAll()の内部でadd()が使われており、この時に呼び出されるadd()はsuper.add()ではなく、Overrideされたadd()である。
+     * 想定外にadd()が呼び出されることで、addCountが不正に増加してしまう。
+     */
     @Override public boolean addAll(Collection<? extends E> c) {
         addCount += c.size();
         return super.addAll(c);
@@ -27,9 +39,4 @@ public class InstrumentedHashSet<E> extends HashSet<E> {
         return addCount;
     }
 
-    public static void main(String[] args) {
-        InstrumentedHashSet<String> s = new InstrumentedHashSet<>();
-        s.addAll(List.of("Snap", "Crackle", "Pop"));
-        System.out.println(s.getAddCount());
-    }
 }
