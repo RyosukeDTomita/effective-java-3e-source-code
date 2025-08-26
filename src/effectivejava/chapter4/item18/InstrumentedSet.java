@@ -1,9 +1,17 @@
 package effectivejava.chapter4.item18;
 import java.util.*;
 
-// Wrapper class - uses composition in place of inheritance  (Page 90)
+/**
+ * 継承の代わりにコンポジションを使う(実装側)
+ */
 public class InstrumentedSet<E> extends ForwardingSet<E> {
     private int addCount = 0;
+
+    public static void main(String[] args) {
+        InstrumentedSet<String> s = new InstrumentedSet<>(new HashSet<>());
+        s.addAll(List.of("Snap", "Crackle", "Pop"));
+        System.out.println(s.getAddCount());
+    }
 
     public InstrumentedSet(Set<E> s) {
         super(s);
@@ -21,9 +29,4 @@ public class InstrumentedSet<E> extends ForwardingSet<E> {
         return addCount;
     }
 
-    public static void main(String[] args) {
-        InstrumentedSet<String> s = new InstrumentedSet<>(new HashSet<>());
-        s.addAll(List.of("Snap", "Crackle", "Pop"));
-        System.out.println(s.getAddCount());
-    }
 }
