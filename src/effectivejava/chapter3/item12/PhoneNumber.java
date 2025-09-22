@@ -19,7 +19,7 @@ public final class PhoneNumber {
     @Override public boolean equals(Object o) {
         if (o == this)
             return true;
-        if (!(o instanceof effectivejava.chapter3.item11.PhoneNumber))
+        if (!(o instanceof effectivejava.chapter3.item12.PhoneNumber))
             return false;
         PhoneNumber pn = (PhoneNumber)o;
         return pn.lineNum == lineNum && pn.prefix == prefix
@@ -45,10 +45,10 @@ public final class PhoneNumber {
      * For example, if the value of the line number is 123, the last
      * four characters of the string representation will be "0123".
      */
-//    @Override public String toString() {
-//        return String.format("%03d-%03d-%04d",
-//                areaCode, prefix, lineNum);
-//    }
+   @Override public String toString() {
+       return String.format("%03d-%03d-%04d",
+               areaCode, prefix, lineNum);
+   }
 
     public static void main(String[] args) {
         PhoneNumber jenny = new PhoneNumber(707, 867, 5309);

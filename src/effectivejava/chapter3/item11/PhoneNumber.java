@@ -1,7 +1,8 @@
 package effectivejava.chapter3.item11;
 import java.util.*;
-
-// Shows the need for overriding hashcode when you override equals (Pages 50-53 )
+/**
+ * hashCodeを適切にオーバーライドした例
+ */
 public final class PhoneNumber {
     private final short areaCode, prefix, lineNum;
 
@@ -28,34 +29,39 @@ public final class PhoneNumber {
     }
 
 
-    // Broken with no hashCode; works with any of the three below
+    // /**
+    //  * 典型的なhashCodeの実装
+    //  */
+    // @Override public int hashCode() {
+    //     int result = Short.hashCode(areaCode);
+    //     result = 31 * result + Short.hashCode(prefix);
+    //     result = 31 * result + Short.hashCode(lineNum);
+    //     return result;
+    // }
 
-//    // Typical hashCode method (Page 52)
-//    @Override public int hashCode() {
-//        int result = Short.hashCode(areaCode);
-//        result = 31 * result + Short.hashCode(prefix);
-//        result = 31 * result + Short.hashCode(lineNum);
-//        return result;
-//    }
-
-//    // One-line hashCode method - mediocre performance  (page 53)
+//    /**
+//     * パフォーマンスは悪いが、簡潔なhashCodeの実装
+//     */
 //    @Override public int hashCode() {
 //        return Objects.hash(lineNum, prefix, areaCode);
 //    }
 
-//    // hashCode method with lazily initialized cached hash code  (page 53)
-//    private int hashCode; // Automatically initialized to 0
-//
-//    @Override public int hashCode() {
-//        int result = hashCode;
-//        if (result == 0) {
-//            result = Short.hashCode(areaCode);
-//            result = 31 * result + Short.hashCode(prefix);
-//            result = 31 * result + Short.hashCode(lineNum);
-//            hashCode = result;
-//        }
-//        return result;
-//    }
+   // hashCode method with lazily initialized cached hash code  (page 53)
+   private int hashCode; // Automatically initialized to 0
+
+   /**
+    * 遅延初期化を使う例
+    */
+   @Override public int hashCode() {
+       int result = hashCode;
+       if (result == 0) {
+           result = Short.hashCode(areaCode);
+           result = 31 * result + Short.hashCode(prefix);
+           result = 31 * result + Short.hashCode(lineNum);
+           hashCode = result;
+       }
+       return result;
+   }
 
     public static void main(String[] args) {
         Map<PhoneNumber, String> m = new HashMap<>();

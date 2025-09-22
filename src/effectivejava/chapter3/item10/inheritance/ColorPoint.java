@@ -3,7 +3,9 @@ package effectivejava.chapter3.item10.inheritance;
 import effectivejava.chapter3.item10.Color;
 import effectivejava.chapter3.item10.Point;
 
-// Attempting to add a value component to Point (Page 41)
+/**
+ * Pointに色の概念を追加したクラス
+ */
 public class ColorPoint extends Point {
     private final Color color;
 
@@ -12,33 +14,33 @@ public class ColorPoint extends Point {
         this.color = color;
     }
 
-    // Broken - violates symmetry!  (Page 41)
-    @Override public boolean equals(Object o) {
-        if (!(o instanceof ColorPoint))
-            return false;
-        return super.equals(o) && ((ColorPoint) o).color == color;
-    }
+    // /**
+    //  * 対称性が破られたequals
+    //  * Point.equals(ColorPoint)の場合はtrue
+    //  * ColorPoint.equals(Point)の場合型が違うので常にfalse
+    //  */
+    // @Override public boolean equals(Object o) {
+    //     if (!(o instanceof ColorPoint))
+    //         return false;
+    //     return super.equals(o) && ((ColorPoint) o).color == color;
+    // }
 
-//    // Broken - violates transitivity! (page 42)
-//    @Override public boolean equals(Object o) {
-//        if (!(o instanceof Point))
-//            return false;
-//
-//        // If o is a normal Point, do a color-blind comparison
-//        if (!(o instanceof ColorPoint))
-//            return o.equals(this);
-//
-//        // o is a ColorPoint; do a full comparison
-//        return super.equals(o) && ((ColorPoint) o).color == color;
-//    }
+    /**
+     * 推移性が破られたequals
+     */
+   @Override public boolean equals(Object o) {
+       if (!(o instanceof Point))
+           return false;
+
+       // If o is a normal Point, do a color-blind comparison
+       if (!(o instanceof ColorPoint))
+           return o.equals(this);
+
+       // o is a ColorPoint; do a full comparison
+       return super.equals(o) && ((ColorPoint) o).color == color;
+   }
 
     public static void main(String[] args) {
-        // First equals function violates symmetry (Page 42)
-        Point p = new Point(1, 2);
-        ColorPoint cp = new ColorPoint(1, 2, Color.RED);
-        System.out.println(p.equals(cp) + " " + cp.equals(p));
-
-        // Second equals function violates transitivity (Page 42)
         ColorPoint p1 = new ColorPoint(1, 2, Color.RED);
         Point p2 = new Point(1, 2);
         ColorPoint p3 = new ColorPoint(1, 2, Color.BLUE);

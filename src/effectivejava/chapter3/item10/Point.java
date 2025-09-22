@@ -1,6 +1,8 @@
 package effectivejava.chapter3.item10;
 
-// Simple immutable two-dimensional integer point class (Page 37)
+/**
+ * equalsで推移性が破られる例に使用するクラス
+ */
 public class Point {
     private final int x;
     private final int y;
