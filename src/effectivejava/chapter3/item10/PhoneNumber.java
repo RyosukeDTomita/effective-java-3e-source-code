@@ -1,6 +1,9 @@
 package effectivejava.chapter3.item10;
 
-// Class with a typical equals method (Page 48)
+/**
+ * equalsの良い例
+ * 電話番号を表すクラス
+ */
 public final class PhoneNumber {
     private final short areaCode, prefix, lineNum;
 
@@ -16,15 +19,19 @@ public final class PhoneNumber {
         return (short) val;
     }
 
+    // Object型を引数にする
     @Override public boolean equals(Object o) {
+        // 引数が自分自身のオブジェクトへの参照であるか検査するために==を使うことでパフォーマンス最適化ができる。
         if (o == this)
             return true;
+        // 引数が正しい型であるかを検査するためにinstanceofを使う。
         if (!(o instanceof PhoneNumber))
             return false;
+        // PhoneNumberにキャストしてフィールドを比較する。事前にinstanceofで型を検査しているので、ここでClassCastExceptionが発生することはない。
         PhoneNumber pn = (PhoneNumber)o;
+        // クラスの意味のある全てのフィールドが等しいかを比較する。比較のコストが低い順に比較することでパフォーマンス最適化ができる。
         return pn.lineNum == lineNum && pn.prefix == prefix
                 && pn.areaCode == areaCode;
     }
 
-    // Remainder omitted - note that hashCode is REQUIRED (Item 11)!
 }
