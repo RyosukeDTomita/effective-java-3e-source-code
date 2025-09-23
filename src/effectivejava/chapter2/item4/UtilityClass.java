@@ -9,3 +9,9 @@ public class UtilityClass {
 
     // Remainder omitted
 }
+
+public class Main {
+    public static void main(String[] args) {
+        UtilityClass uc = new UtilityClass(); // コンパイルエラー
+    }
+}
