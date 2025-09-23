@@ -1,5 +1,8 @@
-package effectivejava.chapter10.item74;
+package effectivejava.chapter10.item75;
 
+/**
+ * 例外情報を記録するためにコンストラクタに詳細情報を含めた例
+ */
 public class IndexOutOfBoundsException extends RuntimeException {
     private final int lowerBound;
     private final int upperBound;
