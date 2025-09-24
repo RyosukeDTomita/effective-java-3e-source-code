@@ -1,6 +1,8 @@
 package effectivejava.chapter4.item17;
 
-// Immutable complex number class (Pages 81-82)
+/**
+ * 不変クラスの例
+ */
 public final class Complex {
     private final double re;
     private final double im;
@@ -17,6 +19,11 @@ public final class Complex {
     public double realPart()      { return re; }
     public double imaginaryPart() { return im; }
 
+    /**
+     * 値を変更する場合は新しいインスタンスを生成して返す
+     * @param c
+     * @return
+     */
     public Complex plus(Complex c) {
         return new Complex(re + c.re, im + c.im);
     }
@@ -59,4 +66,17 @@ public final class Complex {
     @Override public String toString() {
         return "(" + re + " + " + im + "i)";
     }
+
+    public static void main(String[] args) {
+        Complex c1 = new Complex(1, 2);
+        Complex c2 = new Complex(3, 4);
+        System.out.println("c1: " + c1);
+        System.out.println("c2: " + c2);
+        System.out.println("c1 + c2: " + c1.plus(c2));
+        System.out.println("c1 - c2: " + c1.minus(c2));
+        System.out.println("c1 * c2: " + c1.times(c2));
+        System.out.println("c1 / c2: " + c1.dividedBy(c2));
+    }
 }
+
+
