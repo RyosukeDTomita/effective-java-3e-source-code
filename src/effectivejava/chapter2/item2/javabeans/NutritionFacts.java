@@ -2,6 +2,8 @@ package effectivejava.chapter2.item2.javabeans;
 
 // JavaBeans Pattern - allows inconsistency, mandates mutability  (pages 11-12)
 public class NutritionFacts {
+    private static final String FORMAT = "NutritionFacts{servingSize=%d, servings=%d, calories=%d, fat=%d, sodium=%d, carbohydrate=%d}";
+    
     // Parameters initialized to default values (if any)
     private int servingSize  = -1; // Required; no default value
     private int servings     = -1; // Required; no default value
@@ -19,6 +21,11 @@ public class NutritionFacts {
     public void setSodium(int val)       { sodium = val; }
     public void setCarbohydrate(int val) { carbohydrate = val; }
 
+    @Override
+    public String toString() {
+        return String.format(FORMAT, servingSize, servings, calories, fat, sodium, carbohydrate);
+    }
+
     public static void main(String[] args) {
         NutritionFacts cocaCola = new NutritionFacts();
         cocaCola.setServingSize(240);
@@ -26,5 +33,6 @@ public class NutritionFacts {
         cocaCola.setCalories(100);
         cocaCola.setSodium(35);
         cocaCola.setCarbohydrate(27);
+        System.out.println(cocaCola);
     }
 }

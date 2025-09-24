@@ -1,7 +1,11 @@
 package effectivejava.chapter2.item2.builder;
 
-// Builder Pattern  (Page 13)
+/**
+ * Builderパターンのサンプル
+ */
 public class NutritionFacts {
+    private static final String FORMAT = "NutritionFacts{servingSize=%d, servings=%d, calories=%d, fat=%d, sodium=%d, carbohydrate=%d}";
+    
     private final int servingSize;
     private final int servings;
     private final int calories;
@@ -20,6 +24,11 @@ public class NutritionFacts {
         private int sodium        = 0;
         private int carbohydrate  = 0;
 
+        /**
+         * 必須パラメータを受け取るコンストラクタ
+         * @param servingSize
+         * @param servings
+         */
         public Builder(int servingSize, int servings) {
             this.servingSize = servingSize;
             this.servings    = servings;
@@ -48,8 +57,14 @@ public class NutritionFacts {
         carbohydrate = builder.carbohydrate;
     }
 
+    @Override
+    public String toString() {
+        return String.format(FORMAT, servingSize, servings, calories, fat, sodium, carbohydrate);
+    }
+
     public static void main(String[] args) {
         NutritionFacts cocaCola = new NutritionFacts.Builder(240, 8)
                 .calories(100).sodium(35).carbohydrate(27).build();
+        System.out.println(cocaCola);
     }
 }
