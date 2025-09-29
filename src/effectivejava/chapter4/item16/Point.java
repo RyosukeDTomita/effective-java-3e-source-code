@@ -1,8 +1,10 @@
 package effectivejava.chapter4.item16;
 
-// Encapsulation of data by accessor methods and mutators  (Page 78)
+/**
+ * カプセル化されたクラスの例
+ */
 class Point {
-    private double x;
+    private double x; // publicにしてはいけない
     private double y;
 
     public Point(double x, double y) {

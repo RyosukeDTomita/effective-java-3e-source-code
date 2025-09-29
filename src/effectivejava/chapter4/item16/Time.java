@@ -1,6 +1,8 @@
 package effectivejava.chapter4.item16;
 
-// Public class with exposed immutable fields - questionable   (Page 79)
+/**
+ * インスタンス変数をpublicにした不変クラスのサンプル-非推奨
+ */
 public final class Time {
     private static final int HOURS_PER_DAY    = 24;
     private static final int MINUTES_PER_HOUR = 60;
