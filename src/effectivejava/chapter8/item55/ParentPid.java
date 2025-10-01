@@ -2,18 +2,22 @@ package effectivejava.chapter8.item55;
 
 import java.util.Optional;
 
-// Avoiding unnecessary use of Optional's isPresent method (Page 252)
+/**
+ * プロセスの親プロセスIDを表示するサンプル
+ */
 public class ParentPid {
     public static void main(String[] args) {
         ProcessHandle ph = ProcessHandle.current();
 
-        // Inappropriate use of isPresent
+        // isPresent()は値がある時にtrueを返すのでこのチェックの後にget()を呼び出している例。ほぼnullチェックと変わらない
         Optional<ProcessHandle> parentProcess = ph.parent();
         System.out.println("Parent PID: " + (parentProcess.isPresent() ?
                 String.valueOf(parentProcess.get().pid()) : "N/A"));
 
-        // Equivalent (and superior) code using orElse
+        // Optionalの提供するmapやorElseを使って書き換えると読みやすい。
         System.out.println("Parent PID: " +
-            ph.parent().map(h -> String.valueOf(h.pid())).orElse("N/A"));
+            ph.parent()
+            .map(h -> String.valueOf(h.pid()))
+            .orElse("N/A"));
     }
 }

@@ -2,48 +2,76 @@ package effectivejava.chapter8.item55;
 
 import java.util.*;
 
-// Using Optional<T> as a return type (Pages 249-251)
+/**
+ * nullを返す代わりにOptionalを返す例
+ */
 public class Max {
-//    // Returns maximum value in collection - throws exception if empty (Page 249)
-//    public static <E extends Comparable<E>> E max(Collection<E> c) {
-//        if (c.isEmpty())
-//            throw new IllegalArgumentException("Empty collection");
-//
-//        E result = null;
-//        for (E e : c)
-//            if (result == null || e.compareTo(result) > 0)
-//                result = Objects.requireNonNull(e);
-//
-//        return result;
-//    }
+    /**
+     * コレクション中の最大値を返す(Exceptionバージョン)
+     * @param <E>
+     * @param c
+     * @return
+     */
+    public static <E extends Comparable<E>> E maxException(Collection<E> c) {
+        if (c.isEmpty())
+            throw new IllegalArgumentException("Empty collection"); // nullの代わりに例外をスロー
 
-//    // Returns maximum value in collection as an Optional<E> (Page 250)
-//    public static <E extends Comparable<E>>
-//    Optional<E> max(Collection<E> c) {
-//        if (c.isEmpty())
-//            return Optional.empty();
-//
-//        E result = null;
-//        for (E e : c)
-//            if (result == null || e.compareTo(result) > 0)
-//                result = Objects.requireNonNull(e);
-//
-//        return Optional.of(result);
-//    }
+        E result = null;
+        for (E e : c)
+            if (result == null || e.compareTo(result) > 0)
+            result = Objects.requireNonNull(e);
 
-    // Returns max val in collection as Optional<E> - uses stream (Page 250)
+        return result;
+    }
+
+
+    /**
+     * コレクション中の最大値を返す(Optionalバージョン)
+     * @param <E>
+     * @param c
+     * @return
+     */
     public static <E extends Comparable<E>>
-    Optional<E> max(Collection<E> c) {
+    Optional<E> maxOptional(Collection<E> c) {
+        if (c.isEmpty())
+            return Optional.empty(); // 空のOptionalを返す
+
+        E result = null;
+        for (E e : c)
+            if (result == null || e.compareTo(result) > 0)
+                result = Objects.requireNonNull(e);
+
+        return Optional.of(result); // nullではないvalueを持つOptionalを返す
+    }
+
+    /**
+     * コレクション中の最大値をOptionalで返す(ストリームバージョン)
+     * @param <E>
+     * @param c
+     * @return
+     */
+    public static <E extends Comparable<E>>
+    Optional<E> maxOptionalStream(Collection<E> c) {
         return c.stream().max(Comparator.naturalOrder());
     }
 
     public static void main(String[] args) {
-        List<String> words = Arrays.asList(args);
+        // 例外をスローするバージョン
+        List<String> words = Arrays.asList(); // 空のリスト
+        try {
+            maxException(words);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
 
-        System.out.println(max(words));
+        // Optionalを返すバージョン
+        List<String> words2 = Arrays.asList(); // 空のリスト
+        String maxString2= maxOptional(words2).orElse("No words..."); // 空の場合はorElseでデフォルト値を決める。
+        System.out.println(maxString2);
 
-        // Using an optional to provide a chosen default value (Page 251)
-        String lastWordInLexicon = max(words).orElse("No words...");
-        System.out.println(lastWordInLexicon);
+        // Optionalを返すバージョン(ストリーム)
+        List<String> words3 = Arrays.asList(); // 空のリスト
+        String maxString3 = maxOptionalStream(words3).orElse("No words...");
+        System.out.println(maxString3);
     }
 }
