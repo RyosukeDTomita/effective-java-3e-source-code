@@ -6,9 +6,11 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-// List-based Chooser - typesafe (Page 129)
+/**
+ * コレクションを受け取るコンストラクタとそのコレクションからランダムに選ばれた要素を返す単一のメソッドを持つクラス
+ */
 public class Chooser<T> {
-    private final List<T> choiceList;
+    private final List<T> choiceList; // 配列の代わりにListを使用
 
     public Chooser(Collection<T> choices) {
         choiceList = new ArrayList<>(choices);
