@@ -24,7 +24,7 @@ public class Raw {
     }
 
     /**
-     * ジェネリクスを使った安全な実装
+     * ジェネリックスを使った安全な実装
      * @param list
      * @param s
      */
