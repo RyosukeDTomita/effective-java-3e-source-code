@@ -1,6 +1,5 @@
 package effectivejava.chapter5.item28;
 
-
 public class ArrayVsList {
   public static void main(String[] args) {
     Object[] objectArray = new Long[1];
@@ -10,5 +9,4 @@ public class ArrayVsList {
     List<Object> objectList = new ArrayList<Long>();
     objectList.add("I don't fit in"); // コンパイルエラー
   }
-  
 }

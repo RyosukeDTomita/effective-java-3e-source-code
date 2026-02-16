@@ -7,5 +7,5 @@ import java.lang.annotation.*;
 @Target(ElementType.METHOD)
 @Repeatable(ExceptionTestContainer.class)
 public @interface ExceptionTest {
-    Class<? extends Throwable> value();
+  Class<? extends Throwable> value();
 }
