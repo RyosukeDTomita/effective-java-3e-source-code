@@ -1,17 +1,16 @@
-package effectivejava.chapter4.item19;
-
 import java.time.Instant;
 
-// Demonstration of what can go wrong when you override a method  called from constructor (Page 96)
 public final class Sub extends Super {
-  // Blank final, set by constructor
   private final Instant instant;
 
+  /**
+   * NOTE: Javaのサブクラスのコンストラクタは最初にSUperクラスのコンストラクタを呼び出すというルールがある。
+   * そのため、superクラスのコンストラクタがsupreクラスのoverrideMe()を呼び出し、null
+   */
   Sub() {
     instant = Instant.now();
   }
 
-  // Overriding method invoked by superclass constructor
   @Override
   public void overrideMe() {
     System.out.println(instant);

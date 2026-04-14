@@ -15,7 +15,12 @@ public class RecursiveTypeBound {
   }
 
   public static void main(String[] args) {
-    List<String> argList = Arrays.asList(args);
-    System.out.println(max(argList));
+    List<String> sampleList = Arrays.asList("a", "b", "c"); // c
+    System.out.println(max(sampleList));
+
+    List<String> emptyList = Arrays.asList();
+    System.out.println(max(emptyList)); // IllegalArgumentException
+
+
   }
 }

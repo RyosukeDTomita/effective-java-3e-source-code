@@ -14,6 +14,7 @@ public class UnboundedWildCard {
    */
   public static int numElementsInCommon(Set s1, Set s2) {
     int result = 0;
+    // s1.add("hoge"); // 実行時にClassCastExceptionが発生する可能性がある。
     for (Object o1 : s1) if (s2.contains(o1)) result++;
     return result;
   }
@@ -27,6 +28,7 @@ public class UnboundedWildCard {
    */
   public static int numElementsInCommonFixed(Set<?> s1, Set<?> s2) {
     int result = 0;
+    // s1.add(999); // これはコンパイルエラーになる
     for (Object o1 : s1) if (s2.contains(o1)) result++;
     return result;
   }

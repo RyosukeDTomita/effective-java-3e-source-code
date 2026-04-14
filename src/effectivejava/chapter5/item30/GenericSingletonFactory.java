@@ -2,9 +2,15 @@ package effectivejava.chapter5.item30;
 
 import java.util.function.UnaryOperator;
 
-// Generic singleton factory pattern (Page 136-7)
+/**
+ * 1つしかないstaticフィールドを別の型として使いまわす例
+ */
 public class GenericSingletonFactory {
-  // Generic singleton factory pattern
+  /**
+   * Generic singleton factory pattern
+   * もらった引数をそのまま返す関数
+   * NOTE: UnaryOperator<T>は、引数と返り値が同じ型の関数を表す関数型インターフェース
+   */
   private static UnaryOperator<Object> IDENTITY_FN = (t) -> t;
 
   @SuppressWarnings("unchecked")
@@ -16,7 +22,7 @@ public class GenericSingletonFactory {
   public static void main(String[] args) {
     String[] strings = {"jute", "hemp", "nylon"};
     UnaryOperator<String> sameString = identityFunction();
-    for (String s : strings) System.out.println(sameString.apply(s));
+    for (String s : strings) System.out.println(sameString.apply(s)); // NOTE: apply()の呼び出しが終わればTはGCされる
 
     Number[] numbers = {1, 2.0, 3L};
     UnaryOperator<Number> sameNumber = identityFunction();
