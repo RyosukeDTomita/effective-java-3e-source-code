@@ -2,7 +2,9 @@ package effectivejava.chapter7.item42;
 
 import java.util.function.DoubleBinaryOperator;
 
-// Enum with function object fields & constant-specific behavior (Page 195)
+/**
+ * 項目34のOperation.javaをlambdaで書き換えたもの。
+ */
 public enum Operation {
   PLUS("+", (x, y) -> x + y),
   MINUS("-", (x, y) -> x - y),
@@ -30,6 +32,6 @@ public enum Operation {
     double x = 1.0;
     double y = 2.0;
     for (Operation op : Operation.values())
-      System.out.printf("%f %s %f = %f%n", x, op, y, op.apply(x, y));
+      System.out.printf("%f %s %f = %f%n", x, op, y, op.apply(x, y)); // applyを使うと関数が呼び出される。
   }
 }
