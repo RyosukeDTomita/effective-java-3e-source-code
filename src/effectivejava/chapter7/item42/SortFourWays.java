@@ -11,9 +11,9 @@ import java.util.List;
 // Sorting with function objects (Pages 193-4)
 public class SortFourWays {
   public static void main(String[] args) {
-    List<String> words = Arrays.asList(args);
+    List<String> words = Arrays.asList("Hello", "Hi", "Hey", "Hola");
 
-    // Anonymous class instance as a function object - obsolete! (Page 193)
+    // 無名クラスを使ったコンパレータ
     Collections.sort(
         words,
         new Comparator<String>() {
@@ -24,18 +24,16 @@ public class SortFourWays {
     System.out.println(words);
     Collections.shuffle(words);
 
-    // Lambda expression as function object (replaces anonymous class) (Page 194)
+    // コンパレータ構築メソッド using lambda
     Collections.sort(words, (s1, s2) -> Integer.compare(s1.length(), s2.length()));
     System.out.println(words);
     Collections.shuffle(words);
 
-    // Comparator construction method (with method reference) in place of lambda (Page 194)
-    Collections.sort(words, comparingInt(String::length));
-    System.out.println(words);
-    Collections.shuffle(words);
+    // Collections.sort(words, comparingInt(String::length));
+    // System.out.println(words);
+    // Collections.shuffle(words);
 
-    // Default method List.sort in conjunction with comparator construction method (Page 194)
-    words.sort(comparingInt(String::length));
-    System.out.println(words);
+    // words.sort(comparingInt(String::length));
+    // System.out.println(words);
   }
 }
